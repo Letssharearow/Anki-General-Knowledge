@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AnkiCard</title>
+</head>
+<body>
+
+<div id="main-div">
+
+    <h1>{{ question }}</h1>
+    <div class="answer">a)
+        <div>{{ a }}</div>
+    </div>
+    <div class="answer">b)
+        <div>{{ b }}</div>
+    </div>
+    <div class="answer">c)
+        <div>{{ c }}</div>
+    </div>
+    <div class="answer">d)
+        <div>{{ d }}</div>
+    </div>
+
+    <input id="solution" type="hidden" value="{{solution}}">
+</div>
+
+<script>
+    let elementsByName = document.getElementsByClassName("answer");
+    const solutionElement = document.getElementById("solution");
+    const solution = solutionElement.value;
+    console.log(elementsByName[0].textContent.slice(0, 1));
+
+    let userAnswer = "";
+
+    for (const elementsByNameElement of elementsByName) {
+        elementsByNameElement.onclick = e => {
+            userAnswer = elementsByNameElement.textContent.slice(0, 1);
+            console.log(userAnswer);
+            if (correctAnswer()) {
+                setColor(elementsByNameElement, "green");
+            } else {
+                setColor(elementsByNameElement, "red");
+                showSolution();
+            }
+        }
+    }
+
+    function correctAnswer() {
+        return solution.toUpperCase() === userAnswer.toUpperCase();
+    }
+
+    function setColor(element, color) {
+        element.style.backgroundColor = color;
+    }
+
+    function showSolution() {
+        solutionElement.type = "submit";
+    }
+</script>
+
+<style>
+    .card {
+        font-family: arial;
+        font-size: 20px;
+        text-align: center;
+        color: black;
+        background-color: white;
+    }
+
+    .answer {
+        background-color: #04084b;
+        border: #000000 1px solid;
+        margin-bottom: 3px;
+        padding: 2px;
+        width: 100%;
+    }
+
+    #main-div {
+        background-color: #250324;
+        padding: 10px;
+        color: #bde5f3;
+        margin: auto;
+    }
+</style>
+</body>
+</html>
