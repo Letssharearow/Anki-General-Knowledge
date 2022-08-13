@@ -1,7 +1,7 @@
 # Anki-General-Knowledge
 anki-deck can be found at
 
-https://ankiweb.net/decks/share/1659458275968
+https://ankiweb.net/shared/info/1170854385
 
 
 Ideas for further improvements (let me know if you want something of that)
