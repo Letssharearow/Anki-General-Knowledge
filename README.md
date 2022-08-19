@@ -1,7 +1,11 @@
 # Anki-General-Knowledge
 anki-deck can be found at
 
+Multiple choice
 https://ankiweb.net/shared/info/1170854385
+
+Simple front and back
+https://ankiweb.net/shared/info/329889318 (available on 20.08.22)
 
 reddit post 
 https://www.reddit.com/r/Anki/comments/wnk2wi/i_converted_a_learning_website_into_anki_cards/
