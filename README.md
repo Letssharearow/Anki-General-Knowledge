@@ -3,6 +3,9 @@ anki-deck can be found at
 
 https://ankiweb.net/shared/info/1170854385
 
+reddit post 
+https://www.reddit.com/r/Anki/comments/wnk2wi/i_converted_a_learning_website_into_anki_cards/
+
 
 Ideas for further improvements (let me know if you want something of that)
 
