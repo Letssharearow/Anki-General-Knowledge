@@ -13,16 +13,20 @@
   <div id="mainElement">
 
     <h1 id="question">{{ question }}</h1>
-    <div class="answer">a)
+    <div class="answer">
+      <i style="display: none">a</i>
       <div>{{ a }}</div>
     </div>
-    <div class="answer">b)
+    <div class="answer">
+      <i style="display: none">b</i>
       <div>{{ b }}</div>
     </div>
-    <div class="answer">c)
+    <div class="answer">
+      <i style="display: none">c</i>
       <div>{{ c }}</div>
     </div>
-    <div class="answer">d)
+    <div class="answer">
+      <i style="display: none">d</i>
       <div>{{ d }}</div>
     </div>
 
@@ -35,6 +39,18 @@
 <script>
   var code = (function () {/*
   let answerElements = document.getElementsByClassName("answer");
+
+    function randomizeElements(elements){
+        let parentNode = elements[0].parentNode;
+        var arr = Array.prototype.slice.call( elements )
+        const shuffledArray = arr.sort((a, b) => 0.5 - Math.random());
+        console.log(shuffledArray);
+        for (let element of shuffledArray){
+            parentNode.appendChild(element);
+        }
+    }
+    randomizeElements(answerElements);
+
     const questionElement = document.getElementById("question");
     const mainElement = document.getElementById("mainElement");
     const solutionElement = document.getElementById("solution");
@@ -113,15 +129,13 @@
 
     for (const elementsByNameElement of answerElements) {
         elementsByNameElement.onclick = e => {
-            userAnswer = elementsByNameElement.textContent.slice(0, 1);
-            console.log(userAnswer);
+            userAnswer = elementsByNameElement.querySelector("i").textContent.slice(0, 1);
             if (correctAnswer()) {
                 setBackgroundColor(elementsByNameElement, correctAnswerBackgroundColor);
                 setFontColor(elementsByNameElement, correctAnswerFontColor);
             } else {
                 setBackgroundColor(elementsByNameElement, wrongAnswerBackgroundColor);
                 setFontColor(elementsByNameElement, wrongAnswerFontColor);
-                showSolution();
             }
         }
     }
