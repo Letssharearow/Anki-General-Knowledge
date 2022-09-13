@@ -2,45 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AnkiCard</title>
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
 </head>
 <body>
+<!--paste the html inside the div with the id="PLACE_HTML_INSIDE_ME" -->
+<!--paste the javascript after these characters "function () {/*" -->
+<!--paste the styling in "Stil" or "Style" (other page of anki) -->
 
-<div id="mainElement">
+<div id="PLACE_HTML_INSIDE_ME">
+    <div id="mainElement">
 
-    <h1 id="question">{{ question }}</h1>
-    <div class="answer">a)
-        <div>{{ a }}</div>
-    </div>
-    <div class="answer">b)
-        <div>{{ b }}</div>
-    </div>
-    <div class="answer">c)
-        <div>{{ c }}</div>
-    </div>
-    <div class="answer">d)
-        <div>{{ d }}</div>
-    </div>
+        <h1 id="question">Water is a good solvent of ionic salts because</h1>
+        <div class="answer">a)
+            <div>it has a high boiling point</div>
+        </div>
+        <div class="answer">b)
+            <div>it has a high dipole moment</div>
+        </div>
+        <div class="answer">c)
+            <div>it has a high specific heat</div>
+        </div>
+        <div class="answer">d)
+            <div>it has no colour</div>
+        </div>
 
-    <i id="tags" style="display: none">{{Tags}}</i>
+        <i id="tags" style="display: none">#answerBackground_red #answerFont_blue #background_red #questionFont_blue #solutionBackground_green #solutionFont_red #wrongBackground_red #wrongFont_yellow
+        </i>
 
-    <input id="solution" type="hidden" value="{{solution}}">
+        <input id="solution" type="hidden" value="B">
+    </div>
 </div>
 
 <script>
+    var code = (function () {/*
 
     let answerElements = document.getElementsByClassName("answer");
-    const questionElement = document.getElementById("question");
-    const mainElement = document.getElementById("mainElement");
     const solutionElement = document.getElementById("solution");
     const solution = solutionElement.value;
 
     const tags = document.getElementById("tags").textContent;
     let tagsArray = tags.split(" ");
+    let colorTags = [];
     answerElements[0].textContent = tagsArray[0];
 
-    //tags examples:
-    // #answerBackground_red #answerFont_blue #background_red #questionFont_blue #solutionBackground_green #solutionFont_red #wrongBackground_red #wrongFont_yellow
 
     const colorTagNamesEnum = {
         answerBackground: "answerBackground",
@@ -57,28 +65,12 @@
 
     for(let tag of tagsArray){
         if(tag.startsWith("#")){
+            colorTags.push(tag);
             let colorStartIndex = tag.indexOf("_");
             let key = tag.substring(1, colorStartIndex);
-            let value = tag.substring(colorStartIndex + 1);
+            answerElements[0].textContent = key;
+            let value = tag.substring(colorStartIndex, tag.length);
             elementToColor.set(key, value);
-        }
-    }
-
-    let iterableIterator = elementToColor.keys();
-    for(let tag of iterableIterator){
-        let color = elementToColor.get(tag);
-        if(tag === colorTagNamesEnum.answerBackground){
-            for (const elementsByNameElement of answerElements) {
-                setBackgroundColor(elementsByNameElement, color);
-            }
-        }
-        else if(tag === colorTagNamesEnum.answerFont){
-            for (const elementsByNameElement of answerElements) {
-                setFontColor(elementsByNameElement, color);
-            }
-        }
-        else if(tag === colorTagNamesEnum.background){
-            setFontColor(mainElement, color);
         }
     }
 
@@ -106,12 +98,15 @@
     }
 
     function setFontColor(element, color) {
-        element.color = color;
+        element.style.backgroundColor = color;
     }
 
     function showSolution() {
         solutionElement.type = "submit";
     }
+*/}).toString();
+    code = code.slice(16, code.length - 4);
+    eval(new DOMParser().parseFromString(code, "text/html").documentElement.textContent);
 </script>
 
 <style>
@@ -138,5 +133,6 @@
         margin: auto;
     }
 </style>
+
 </body>
 </html>
