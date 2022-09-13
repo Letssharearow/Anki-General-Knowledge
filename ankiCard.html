@@ -6,9 +6,9 @@
 </head>
 <body>
 
-<div id="main-div">
+<div id="mainElement">
 
-    <h1>{{ question }}</h1>
+    <h1 id="question">{{ question }}</h1>
     <div class="answer">a)
         <div>{{ a }}</div>
     </div>
@@ -22,25 +22,37 @@
         <div>{{ d }}</div>
     </div>
 
+    <i id="tags" style="display: none">{{Tags}}</i>
+
     <input id="solution" type="hidden" value="{{solution}}">
 </div>
 
 <script>
-    let elementsByName = document.getElementsByClassName("answer");
+
+    let answerElements = document.getElementsByClassName("answer");
+    const questionElement = document.getElementById("question");
+    const mainElement = document.getElementById("mainElement");
     const solutionElement = document.getElementById("solution");
     const solution = solutionElement.value;
-    console.log(elementsByName[0].textContent.slice(0, 1));
+
+    const tags = document.getElementById("tags");
+
+    let split = tags.split(" ");
+    answerElements[0].textContent = split[0];
+
+
+    console.log(answerElements[0].textContent.slice(0, 1));
 
     let userAnswer = "";
 
-    for (const elementsByNameElement of elementsByName) {
+    for (const elementsByNameElement of answerElements) {
         elementsByNameElement.onclick = e => {
             userAnswer = elementsByNameElement.textContent.slice(0, 1);
             console.log(userAnswer);
             if (correctAnswer()) {
-                setColor(elementsByNameElement, "green");
+                setBackgroundColor(elementsByNameElement, "green");
             } else {
-                setColor(elementsByNameElement, "red");
+                setBackgroundColor(elementsByNameElement, "red");
                 showSolution();
             }
         }
@@ -50,7 +62,11 @@
         return solution.toUpperCase() === userAnswer.toUpperCase();
     }
 
-    function setColor(element, color) {
+    function setBackgroundColor(element, color) {
+        element.style.backgroundColor = color;
+    }
+
+    function setFontColor(element, color) {
         element.style.backgroundColor = color;
     }
 
@@ -76,7 +92,7 @@
         width: 100%;
     }
 
-    #main-div {
+    #mainElement {
         background-color: #250324;
         padding: 10px;
         color: #bde5f3;
