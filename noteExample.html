@@ -30,7 +30,7 @@
             <div>it has no colour</div>
         </div>
 
-        <i id="tags" style="display: none">#answerBackground_red #answerFont_blue #background_red #questionFont_blue #solutionBackground_green #solutionFont_red #wrongBackground_red #wrongFont_yellow
+        <i id="tags" style="display: none">#answerBackground_#lila #answerFont_lightblue #background_#250324 #questionFont_blue #solutionBackground_green #solutionFont_white #wrongBackground_red #wrongFont_white
         </i>
 
         <input id="solution" type="hidden" value="B">
@@ -40,15 +40,17 @@
 <script>
     var code = (function () {/*
 
-    let answerElements = document.getElementsByClassName("answer");
+      let answerElements = document.getElementsByClassName("answer");
+    const questionElement = document.getElementById("question");
+    const mainElement = document.getElementById("mainElement");
     const solutionElement = document.getElementById("solution");
     const solution = solutionElement.value;
 
     const tags = document.getElementById("tags").textContent;
     let tagsArray = tags.split(" ");
-    let colorTags = [];
-    answerElements[0].textContent = tagsArray[0];
 
+    //tags examples:
+    // #answerBackground_red #answerFont_blue #background_red #questionFont_blue #solutionBackground_green #solutionFont_red #wrongBackground_red #wrongFont_yellow
 
     const colorTagNamesEnum = {
         answerBackground: "answerBackground",
@@ -61,16 +63,55 @@
         wrongFont: "wrongFont",
     }
 
+    let correctAnswerBackgroundColor = "green";
+    let correctAnswerFontColor = "white";
+
+    let wrongAnswerBackgroundColor = "red";
+    let wrongAnswerFontColor = "white";
+
     var elementToColor = new Map;
 
     for(let tag of tagsArray){
         if(tag.startsWith("#")){
-            colorTags.push(tag);
             let colorStartIndex = tag.indexOf("_");
             let key = tag.substring(1, colorStartIndex);
-            answerElements[0].textContent = key;
-            let value = tag.substring(colorStartIndex, tag.length);
+            let value = tag.substring(colorStartIndex + 1);
             elementToColor.set(key, value);
+        }
+    }
+
+    console.log(elementToColor);
+
+    let iterableIterator = elementToColor.keys();
+    for(let tag of iterableIterator){
+        let color = elementToColor.get(tag);
+        if(tag === colorTagNamesEnum.answerBackground){
+            for (const elementsByNameElement of answerElements) {
+                setBackgroundColor(elementsByNameElement, color);
+            }
+        }
+        else if(tag === colorTagNamesEnum.answerFont){
+            for (const elementsByNameElement of answerElements) {
+                setFontColor(elementsByNameElement, color);
+            }
+        }
+        else if(tag === colorTagNamesEnum.background){
+            setBackgroundColor(mainElement, color);
+        }
+        else if(tag === colorTagNamesEnum.questionFont){
+            setFontColor(questionElement, color);
+        }
+        else if(tag === colorTagNamesEnum.solutionFont){
+            correctAnswerFontColor = color;
+        }
+        else if(tag === colorTagNamesEnum.solutionBackground){
+            correctAnswerBackgroundColor = color;
+        }
+        else if(tag === colorTagNamesEnum.wrongBackground){
+            wrongAnswerBackgroundColor = color;
+        }
+        else if(tag === colorTagNamesEnum.wrongFont){
+            wrongAnswerFontColor = color
         }
     }
 
@@ -81,9 +122,11 @@
             userAnswer = elementsByNameElement.textContent.slice(0, 1);
             console.log(userAnswer);
             if (correctAnswer()) {
-                setBackgroundColor(elementsByNameElement, "green");
+                setBackgroundColor(elementsByNameElement, correctAnswerBackgroundColor);
+                setFontColor(elementsByNameElement, correctAnswerFontColor);
             } else {
-                setBackgroundColor(elementsByNameElement, "red");
+                setBackgroundColor(elementsByNameElement, wrongAnswerBackgroundColor);
+                setFontColor(elementsByNameElement, wrongAnswerFontColor);
                 showSolution();
             }
         }
@@ -98,7 +141,7 @@
     }
 
     function setFontColor(element, color) {
-        element.style.backgroundColor = color;
+        element.style.color = color;
     }
 
     function showSolution() {
